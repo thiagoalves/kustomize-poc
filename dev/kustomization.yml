@@ -1,0 +1,20 @@
+bases:
+- ../base
+patches:
+- ss-nginx.yml
+- cm-nginx-resource.yml
+patchesJson6902:
+- target:
+    group: extensions
+    version: v1beta1
+    kind: Ingress
+    name: ing-nginx
+  path: ingress-patch.yml
+namespace: dev-nginx-test
+namePrefix: dev-
+commonLabels:
+  stage: dev
+commonAnnotations:
+  com.trilogy.stage: dev
+patchesStrategicMerge:
+- cm-nginx-generator.yml

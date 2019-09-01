@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-nginx-generator
+data:
+  nginx-generator-literal1: "value-from-prod $(NAMESPACE)"
+  nginx-generator-from-file2: |-
+    This is a common text 2 (nginx-prod) $(NAMESPACE)

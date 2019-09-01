@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ss-nginx
+  labels:
+    namespace: $(NAMESPACE)
+  annotations:
+    com.trilogy.namespace: $(NAMESPACE)
+spec:
+  serviceName: "nginx-svc"
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+#        namespace: "$(NAMESPACE)"
+      annotations:
+        com.trilogy.namespace: "$(NAMESPACE) $(SVC_NAME) $(SS_NAME)"
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.15-alpine
+        env:
+        - name: NAMESPACE
+          value: "$(NAMESPACE) $(SVC_NAME) $(SS_NAME) $(POD_NAME)"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.spec.template.name
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: vol-nginx-www
+          mountPath: /usr/share/nginx/html
+        - name: my-volume
+          mountPath: "/tmp/$(NAMESPACE)"
+        - name: vol-nginx-nfs-test
+          mountPath: /usr/share/nginx/nfs
+      volumes:
+      - name: my-volume
+        emptyDir: {}
+  volumeClaimTemplates: []

@@ -1,0 +1,52 @@
+resources:
+- ns-nginx-test.yml
+- cm-nginx-resource.yml
+- sc-nginx.yml
+- ss-nginx.yml
+- svc-nginx.yml
+- sec-ssl-devfactory.yml
+- ing-nginx.yml
+commonAnnotations:
+  com.trilogy.maintainer.skype: N/A
+  com.trilogy.maintainer.email: compute-platform@trilogy.com
+  com.trilogy.company: Trilogy
+  com.trilogy.team: MS.SaaSOps.ComputePlatform
+  com.trilogy.product: devfactory-jira
+  com.trilogy.service: node
+configMapGenerator: 
+- name: cm-nginx-generator
+  literals: 
+  - nginx-generator-literal1=value-from-base $(NAMESPACE)
+  files:
+  - files/nginx-generator-from-file1
+configurations:
+- varconfig.yml
+vars:
+- name: NAMESPACE
+  objref:
+    apiVersion: v1
+    kind: Namespace
+    name: ns-nginx-test
+  fieldref:
+    fieldpath: metadata.name
+- name: SVC_NAME
+  objref:
+    apiVersion: v1
+    kind: Service
+    name: svc-nginx
+  fieldref:
+    fieldpath: metadata.name
+- name: SS_NAME
+  objref:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: ss-nginx
+  fieldref:
+    fieldpath: metadata.name
+- name: POD_NAME
+  objref:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: ss-nginx
+  fieldref:
+    fieldpath: metadata.name

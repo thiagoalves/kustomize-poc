@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-nginx-resource
+data:
+  nginx-resource-literal1: "value-from-base $(NAMESPACE)"
+  nginx-resource-text1: |-
+    This is a common text (nginx-base) $(NAMESPACE)

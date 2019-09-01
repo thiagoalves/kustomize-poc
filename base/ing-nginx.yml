@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ing-nginx
+  annotations:
+    kubernetes.io/ingress.class: public
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - host: nginx-base.devfactory.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: svc-nginx
+          servicePort: 80
+  tls:
+  - secretName: sec-ssl-devfactory
+    hosts:
+    - nginx-base.devfactory.com

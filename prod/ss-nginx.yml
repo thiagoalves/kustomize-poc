@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nginx-web
+spec:
+  template:
+    spec:
+      volumes:
+        - name: vol-nginx-nfs-test
+          nfs: 
+            server: fs-3ba702d9.efs.us-east-1.amazonaws.com
+            path: /prod
+  replicas: 2
+  serviceName: "prod-nginx-svc"
+  volumeClaimTemplates:
+  - metadata:
+      name: vol-nginx-www
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: prod-sc-nginx
+      resources:
+        requests:
+          storage: 2Gi
