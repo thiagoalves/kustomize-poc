@@ -28,7 +28,7 @@ spec:
         - name: POD_NAME
           valueFrom:
             fieldRef:
-              fieldPath: metadata.spec.template.name
+              fieldPath: metadata.name
         ports:
         - containerPort: 80
           name: web

@@ -1,7 +1,6 @@
 bases:
 - ../base
 patches:
-- ss-nginx.yml
 - cm-nginx-resource.yml
 patchesJson6902:
 - target:
@@ -17,4 +16,5 @@ commonLabels:
 commonAnnotations:
   com.trilogy.stage: dev
 patchesStrategicMerge:
+- ss-nginx.yml
 - cm-nginx-generator.yml
