@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: ss-nginx
+  name: sts-nginx
   labels:
     namespace: $(NAMESPACE)
   annotations:

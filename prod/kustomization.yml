@@ -16,5 +16,5 @@ commonLabels:
 commonAnnotations:
   com.trilogy.stage: prod
 patchesStrategicMerge:
-- ss-nginx.yml
+- sts-nginx.yml
 - cm-nginx-generator.yml

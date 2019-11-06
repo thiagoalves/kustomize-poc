@@ -1,20 +1,20 @@
 bases:
 - ../base
-patches:
-- cm-nginx-resource.yml
-patchesJson6902:
-- target:
-    group: extensions
-    version: v1beta1
-    kind: Ingress
-    name: ing-nginx
-  path: ingress-patch.yml
 namespace: dev-nginx-test
 namePrefix: dev-
 commonLabels:
   stage: dev
 commonAnnotations:
   com.trilogy.stage: dev
+patches:
+- cm-nginx-resource.yml
 patchesStrategicMerge:
-- ss-nginx.yml
+- sts-nginx.yml
 - cm-nginx-generator.yml
+patchesJson6902:
+- target:
+    group: extensions
+    version: v1beta1
+    kind: Ingress
+    name: ing-nginx
+  path: ing-patch.yml
